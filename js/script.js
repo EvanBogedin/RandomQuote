@@ -1,7 +1,5 @@
-//const button = document.getElementById("quote-button");
-const quote_text = document.getElementById("quote-text");
-//input name attribute and value attribute
-let quote_index = 0;
+const quoteText = document.getElementById("quote-text");
+let quoteIndex = 0;
 let quotes = [
   "The only limit to our realization of tomorrow is our doubts of today. - Franklin D. Roosevelt",
   "It is better to keep your mouth closed and let people think you are a fool than to open it and remove all doubt - Mark Twain",
@@ -14,29 +12,33 @@ let quotes = [
   "Believe you can and you're halfway there. - Theodore Roosevelt",
   "I’ve searched all the parks in all the cities and found no statues of committees - G.K. Chesterton",
 ];
+let shuffledQuotes = [];
 
-let shuffled_quotes = [];
-
-//this will reduce the chance of getting the same quote two times in a row
+//Shuffles the quotes reducing the chance of getting the same quote two times in a row
+//Also this runs on page load
 function shuffle() {
-  let temp_array = quotes.slice();
+  //make copy of quote array
+  let tempArray = quotes.slice();
+
+  //place random quote in each index of shuffledQuote array, each time removing the select quote from tempArray
   for (let i = 0; i < quotes.length; i++) {
-    let random = Math.round(Math.random() * (temp_array.length - 1));
-    shuffled_quotes[i] = temp_array[random];
-    temp_array.splice(random, 1);
+    let random = Math.round(Math.random() * (tempArray.length - 1));
+    shuffledQuotes[i] = tempArray[random];
+    tempArray.splice(random, 1);
   }
+  console.log(shuffledQuotes);
 }
 
 function displayQuote() {
-  //let random = Math.floor(Math.random() * quotes.length);
-  let selected_quote = shuffled_quotes[quote_index];
+  let selected_quote = shuffledQuotes[quoteIndex];
   alert(selected_quote);
 
-  quote_text.innerHTML = selected_quote;
+  quoteText.innerHTML = selected_quote;
 
-  quote_index++;
-  if (quote_index == 10) {
-    quote_index = 0;
+  //shuffles the quotes once they have all been exuasted and resets the quoteIndex
+  quoteIndex++;
+  if (quoteIndex == quotes.length) {
+    quoteIndex = 0;
     shuffle();
   }
 }
